@@ -5,7 +5,7 @@
   //display friend's messages in bold
   //private messages???
   //update messages every 2 seconds
-  
+
 
 var app = {};
 app.server = 'https://api.parse.com/1/classes/messages';
@@ -117,19 +117,9 @@ var sortByTime = function(data) {
   return sorted;
 };
 
-// var msg = {
-//   username: 'chris',
-//   text: 'hello everybody',
-//   roomname: 'lobby'
-// };
-// app.init();
-// app.send(msg);
-// app.fetch();
 $(document).ready(function() {
   app.init();
   app.fetch();
-  // app.send({username: 'toad', text: 'hi mario'});
 });
-// app.init();
-// app.fetch();
+
 
