@@ -17,7 +17,7 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
-      <div id="roomSelect"></div>
+      <!-- <div id="roomSelect"></div> -->
     </div>
 
     <div id='inputBox'>
@@ -25,7 +25,12 @@
     <button id='submit' name='submit' class='submit' onclick='app.handleSubmit()'>Send</button>
     </div>
 
-    <div id='rooms'>Available Chat Rooms: //dropdown menu here/ / / / / / / / / / / / / / / / / / / / / / / / / / / //make new room over here</div>
+    <div id='rooms'>
+      Available Chat Rooms: //dropdown menu here/ / / / / / / / / / / / / / / / / / / / / / / / / / / //make new room over here<br>
+      <select id="roomSelect">
+        <option value="lobby">Lobby</option>
+      </select>
+    </div>
     <div id="chats"></div>
 
   </body>

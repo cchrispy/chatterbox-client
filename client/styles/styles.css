@@ -7,7 +7,7 @@ body {
 
 
 #main, #chats, #rooms {
-    width: 800px;
+    width: 60%;
     margin: auto;
     text-align: left;
     background: white;

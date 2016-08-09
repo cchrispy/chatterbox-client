@@ -10,7 +10,7 @@
 var app = {};
 app.server = 'https://api.parse.com/1/classes/messages';
 
-var messages = {};
+// var messages = {};
 
 app.init = function() {
   $.ajax({
@@ -31,7 +31,6 @@ app.send = function(message) {
     data: JSON.stringify(message),
     contentType: 'application/json',
     success: function (data, status, jqXHR) {
-      console.log('chatterbox: Message sent');
     },
     error: function (data) {
       console.error('chatterbox: Failed to send message', data);
@@ -61,18 +60,37 @@ app.clearMessages = function() {
 };
 
 app.addMessage = function(message) {
-  var msg = escapeText(message.text);
-  $('#chats').prepend('<div class="messageBox"><a href="#" class="username" onclick="app.addFriend()">' 
-    + escapeText(message.username) 
-    + '</a><br><span class=timeStamp>' 
-    + timeStamp(message) 
-    + '</span><br><span class="message">' 
-    + msg 
-    + '</span></div>');
+  var $username = $('<a>', {'class': 'username', 'a': '#', 'onclick': 'app.addFriend()'}).text(escapeText(message.username));
+  var $time = $('<span>', {'class': 'timeStamp'}).text(timeStamp(message));
+  var $msg = $('<span>', {'class': 'message'}).text(escapeText(message.text));
+  var $fullMessage = $('<div>', {'class': 'messageBox'}).append($username, '<br>', $time, '<br>', $msg);
+  $('#chats').prepend($fullMessage);
+
+  // var msg = escapeText(message.text);
+  // var username = escapeText(message.username);
+  // var time = timeStamp(message);
+  // $('#chats').prepend('<div class="messageBox"><a href="#" class="username" onclick="app.addFriend()">' 
+  //   + escapeText(message.username) 
+  //   + '</a><br><span class=timeStamp>' 
+  //   + timeStamp(message) 
+  //   + '</span><br><span class="message">' 
+  //   + msg 
+  //   + '</span></div>');
 };
 
 app.addRoom = function(room) {
-  $('#roomSelect').append('<div>' + room + '</div>');
+  var roomExists = _.reduce($('#roomSelect > option'), function(found, nextRoom) {
+    if (found) {
+      return true;
+    } else {
+      return nextRoom.getAttribute('value') === room.toLowerCase();
+    }
+  }, false);
+  if (!roomExists) { // create new room if the room doesn't exist already
+    var roomString = room[0].toUpperCase() + room.slice(1);
+    var $newRoom = $('<option>', {'value': room.toLowerCase()}).text(roomString);
+    $('#roomSelect').append($newRoom);
+  }
 };
 
 app.addFriend = function() {
