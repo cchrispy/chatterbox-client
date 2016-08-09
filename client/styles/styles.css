@@ -5,8 +5,9 @@ body {
     font-family: arial, sans-serif;
 }
 
-#main, #chats {
-    width: 500px;
+
+#main, #chats, #rooms {
+    width: 800px;
     margin: auto;
     text-align: left;
     background: white;
@@ -14,7 +15,9 @@ body {
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
 }
-
+#main {
+    width: 100%;
+}
 #main h1 {
     margin-top: 0;
     font-size: 35px;
@@ -46,14 +49,23 @@ body {
     line-height: 13px;
 }
 
-#chats {
-    height: 600px;
-    overflow: scroll;
+#chats, #rooms {
+    max-height: 600px;
+    overflow-y: scroll;
+    float: left;
 }
 form {
     padding: 20px;
     padding-left: 0;
     margin-bottom: 20px;
+}
+
+#inputBox {
+    float: right;
+    padding-right: 6px;
+    border: 2px solid gray;
+    height: 140px;
+    width: 300px;
 }
 
 form input[type=text] {
@@ -91,4 +103,31 @@ form input[type=text] {
     color: #fff;
     background-color: #0090da;
 }
+
+.username {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+    font-family: 'Gotham';
+    font-size: 20px;
+}
+
+.messageBox {
+    margin: 5px;
+    padding: 5px;
+    background-color: lightgray;
+    text-align: center;
+}
+#message {
+    height: 100px;
+    width: 100%;
+    max-height: 100px;
+    max-width: 100%;
+}
+.timeStamp {
+    font-size: 12px;
+    color: gray;
+}
+
 
