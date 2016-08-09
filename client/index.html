@@ -8,6 +8,8 @@
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <!-- your scripts -->
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
   </head>
@@ -15,7 +17,17 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+      <div id="roomSelect"></div>
     </div>
     <div id="chats"></div>
+    <input id='message' value='Enter message here'/>
+    <button id='send' name='submit' class='submit' onclick='app.handleSubmit()'>Send</button>
+
+
+<!--     <form id='send' action='#'>
+      <input type='text' id='message' name='message' value='Enter message here'>
+      <input type='submit' class='submit' name='submit' onclick='app.handleSubmit()' value='send'>
+    </form> -->
+    
   </body>
 </html>
