@@ -43,7 +43,9 @@ app.fetch = function() {
   $.ajax({
     url: 'https://api.parse.com/1/classes/messages',
     type: 'GET',
-    order: '-createdAt',
+    data: {
+      order: '-createdAt'
+    },
     contentType: 'application/json',
     success: function (data) {
       console.log(data);
@@ -73,7 +75,7 @@ app.clearMessages = function() {
 };
 
 app.addMessage = function(message) {
-  var $username = $('<a>', {'class': 'username', 'href': '#', 'onclick': 'app.addFriend()'}).text(escapeText(message.username));
+  var $username = $('<a>'+message.username+'</a>', {'class': 'username', 'href': '#', 'onclick': 'app.addFriend()'});
   var $time = $('<span>', {'class': 'timeStamp'}).text(timeStamp(message));
   var $msg = $('<span>', {'class': 'message'}).text(escapeText(message.text));
   var $fullMessage = $('<div>', {'class': 'messageBox'}).append($username, '<br>', $time, '<br>', $msg);

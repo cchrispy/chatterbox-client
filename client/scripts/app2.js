@@ -5,7 +5,7 @@ var app = {
     app.objectID = 0;
     app.messages = [];
     app.username = location.search.split('=')[location.search.split('=').length - 1];
-    app.roomname = 'THIS IS MY ROOM';
+    app.roomname = 'lobby';
     app.server = 'https://api.parse.com/1/classes/messages';
     app.rooms = {};
     // event listeners here
@@ -13,6 +13,7 @@ var app = {
     app.fetch();
 
     $('body').on('submit', 'form', app.handleSubmit);
+    $('body').on('change', 'select', app.roomChange);
 
   },
 
@@ -34,14 +35,19 @@ var app = {
     $.ajax({
       url: app.server,
       type: 'GET',
-      order: '-createdAt',
+      data: {
+        order: '-createdAt'
+      },
       success: function (data) {
         console.log(data);
         app.messages = data.results;
         if (app.messages[0].objectId !== app.objectID) {
-          app.displayMessages(app.messages);
-          app.objectID = app.messages[0].objectId;
-        } 
+          var messagesFilteredByRoom = app.messages.filter(function(message) {
+            return message.roomname === app.roomname;
+          });
+          app.displayMessages(messagesFilteredByRoom);
+        }
+        app.objectID = app.messages[0].objectId;
       },
       error: function(error) {
         console.error('failed to fetch', error);
@@ -52,7 +58,7 @@ var app = {
   displayMessages: function(messages) {
     messages.forEach(app.displayOneMessage);
     messages.forEach(function(message) {
-      if (message.roomname === undefined) {
+      if (message.roomname === undefined || message.roomname === '') {
         app.addRoom('lobby');
       } else {
         app.addRoom(message.roomname);
@@ -75,7 +81,7 @@ var app = {
     event.preventDefault();
     var textMessage = $('#message').val();
     var msg = {
-      username: app.username,
+      username: location.search.split('=')[location.search.split('=').length - 1],
       text: textMessage,
       roomname: app.roomname || 'lobby'
     };
@@ -91,12 +97,10 @@ var app = {
     }
   },
 
-
-
-
-
-
-
+  roomChange: function() {
+    var newRoom = $('select').val();
+    app.roomname = newRoom;
+  },
 
 
 
