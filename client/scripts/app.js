@@ -30,11 +30,11 @@ app.send = function(message) {
     type: 'POST',
     data: JSON.stringify(message),
     contentType: 'application/json',
-    success: function (data, status, jqXHR) {
+    success: function (data) {
       console.log('message sent');
     },
-    error: function (data) {
-      console.error('chatterbox: Failed to send message', data);
+    error: function (error) {
+      console.error('chatterbox: Failed to send message', error);
     }
   });
 };
@@ -43,8 +43,10 @@ app.fetch = function() {
   $.ajax({
     url: 'https://api.parse.com/1/classes/messages',
     type: 'GET',
+    order: '-createdAt',
     contentType: 'application/json',
-    success: function (data, status, jqXHR) {
+    success: function (data) {
+      console.log(data);
       var sortedData = sortByTime(data); // keys are the time, values are the objects
       console.log(sortedData);
       for (var prop in sortedData) {
@@ -60,8 +62,8 @@ app.fetch = function() {
       // .enter().call(function(d) { console.log(d.time); }); // d[d.time]
       // can use d3 to add the old messages (use .enter())
     },
-    error: function (data) {
-      console.error('chatterbox: Failed to fetch message', data);
+    error: function (error) {
+      console.error('chatterbox: Failed to fetch message', error);
     }
   });
 };
